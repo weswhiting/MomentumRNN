@@ -13,6 +13,7 @@ from trivializations import cayley_map, expm
 from initialization import henaff_init_, cayley_init_
 
 from trafficdataset import TrafficDataset, stratified_split
+import pandas as pd
 
 from momentumnet import MomentumLSTMCell, LSTMCell, NesterovLSTMCell, AdamLSTMCell
 
@@ -175,25 +176,20 @@ class Model(nn.Module):
 
 
 def main():
-	# Train-test split by IDs
+	#Get train-test split
 	df = pd.read_csv('city1_processed.csv')
-	IDs = df['ID'].drop_duplicates().tolist()
-
-	prop=0.9
-	shuffle(IDs)
-	train_IDs = IDs[0:int(prop*len(IDs))]
-	test_IDs = IDs[int(prop*len(IDs)):]
-
-	train = df[df['ID'].isin(train_IDs)]
-	test = df[df['ID'].isin(test_IDs)]
+	stratified_split(df, .9)
+	train_data = TrafficDataset('train.csv')
+	test_data = TrafficDataset('test.csv')
+	
 	
     # Load data
     kwargs = {'num_workers': 1, 'pin_memory': True}
     train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('./mnist', train=True, download=True, transform=transforms.ToTensor()),
+        train_data,
         batch_size=batch_size, shuffle=True, **kwargs)
     test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('./mnist', train=False, transform=transforms.ToTensor()),
+        test_data,
         batch_size=batch_size, shuffle=True, **kwargs)
 
     # Model and optimizers
