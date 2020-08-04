@@ -9,8 +9,8 @@ class TrafficDataset(Dataset):
     #read csv, load row data into variables
     file_out = pd.read_csv(file_name)
     file_out = file_out.drop(columns = ['Timestamp'])
-    x = file_out.iloc[0:-1, 0:-1].values
-    y = file_out.iloc[0:-1, -1].values
+    x = file_out.iloc[0:, 0:-1].values
+    y = file_out.iloc[0:, -1].values
     
     #convert to torch tensors
     self.X = torch.tensor(x, dtype=torch.float32)
