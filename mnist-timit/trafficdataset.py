@@ -27,7 +27,6 @@ def stratified_split(df, prop):
     rates = {.01,.02,.05,.1,.2}
     train_IDs = []
     test_IDs = []
-    print(type(train_IDs))
     for rate in rates:
         rateIDs = IDs[IDs['Fraction_Observed']==rate]
         rateIDs['ID'].tolist()
