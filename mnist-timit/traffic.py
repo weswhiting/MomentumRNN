@@ -12,6 +12,8 @@ from orthogonal import OrthogonalRNN, OrthogonalMomentumRNN, OrthogonalAdamRNN, 
 from trivializations import cayley_map, expm
 from initialization import henaff_init_, cayley_init_
 
+from trafficdataset import TrafficDataset
+
 from momentumnet import MomentumLSTMCell, LSTMCell, NesterovLSTMCell, AdamLSTMCell
 
 from utils import Logger
@@ -173,6 +175,18 @@ class Model(nn.Module):
 
 
 def main():
+	# Train-test split by IDs
+	df = pd.read_csv('city1_processed.csv')
+	IDs = df['ID'].drop_duplicates().tolist()
+
+	prop=0.9
+	shuffle(IDs)
+	train_IDs = IDs[0:int(prop*len(IDs))]
+	test_IDs = IDs[int(prop*len(IDs)):]
+
+	train = df[df['ID'].isin(train_IDs)]
+	test = df[df['ID'].isin(test_IDs)]
+	
     # Load data
     kwargs = {'num_workers': 1, 'pin_memory': True}
     train_loader = torch.utils.data.DataLoader(
