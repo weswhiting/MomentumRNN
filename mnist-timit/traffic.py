@@ -12,7 +12,7 @@ from orthogonal import OrthogonalRNN, OrthogonalMomentumRNN, OrthogonalAdamRNN, 
 from trivializations import cayley_map, expm
 from initialization import henaff_init_, cayley_init_
 
-from trafficdataset import TrafficDataset
+from trafficdataset import TrafficDataset, stratified_split
 
 from momentumnet import MomentumLSTMCell, LSTMCell, NesterovLSTMCell, AdamLSTMCell
 
