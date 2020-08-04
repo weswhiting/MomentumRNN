@@ -34,7 +34,7 @@ def stratified_split(df, prop):
         test_append = rateIDs[int(prop*len(rateIDs)):]
         train_IDs += train_append['ID'].tolist()
         test_IDs += test_append['ID'].tolist()
-        train = df[df['ID'].isin(train_IDs)]
-        test = df[df['ID'].isin(test_IDs)]
-        train.to_csv('train.csv')
-        test.to_csv('test.csv')
+    train = df[df['ID'].isin(train_IDs)]
+    test = df[df['ID'].isin(test_IDs)]
+    train.to_csv('train.csv')
+    test.to_csv('test.csv')
