@@ -19,7 +19,7 @@ class TrafficDataset(Dataset):
   def __len__(self):
     return len(self.y)
   
-  def __getitem(self, idx):
+  def __getitem__(self, idx):
     return self.X[idx], self.y[idx]
 
 def stratified_split(df, prop):
