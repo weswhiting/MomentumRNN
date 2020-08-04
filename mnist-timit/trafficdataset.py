@@ -21,3 +21,21 @@ class TrafficDataset(Dataset):
   
   def __getitem(self, idx):
     return self.X[idx], self.y[idx]
+
+def stratified_split(df, prop):
+    IDs = df[['ID','Fraction_Observed']].drop_duplicates()
+    rates = {.01,.02,.05,.1,.2}
+    train_IDs = []
+    test_IDs = []
+    print(type(train_IDs))
+    for rate in rates:
+        rateIDs = IDs[IDs['Fraction_Observed']==rate]
+        rateIDs['ID'].tolist()
+        train_append = rateIDs[0:int(prop*len(rateIDs))]
+        test_append = rateIDs[int(prop*len(rateIDs)):]
+        train_IDs += train_append['ID'].tolist()
+        test_IDs += test_append['ID'].tolist()
+        train = df[df['ID'].isin(train_IDs)]
+        test = df[df['ID'].isin(test_IDs)]
+        train.to_csv('train.csv')
+        test.to_csv('test.csv')
