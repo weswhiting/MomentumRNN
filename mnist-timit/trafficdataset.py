@@ -3,7 +3,7 @@ import torch
 from torch.utils.data import Dataset
 from sklearn.preprocessing import StandardScaler
 
-class FeatureDataset(Dataset):
+class TrafficDataset(Dataset):
 
   def __init__(self, file_name):
     #read csv, load row data into variables
