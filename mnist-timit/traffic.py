@@ -176,11 +176,11 @@ class Model(nn.Module):
 
 
 def main():
-	#Get train-test split
-	df = pd.read_csv("/content/gdrive/My Drive/city1_processed.csv")
-	stratified_split(df, .9)
-	train_data = TrafficDataset('train.csv')
-	test_data = TrafficDataset('test.csv')
+    #Get train-test split
+    df = pd.read_csv("/content/gdrive/My Drive/city1_processed.csv")
+    stratified_split(df, .9)
+    train_data = TrafficDataset('train.csv')
+    test_data = TrafficDataset('test.csv')
 	
 	
     # Load data
